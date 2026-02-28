@@ -1,0 +1,31 @@
+{{ define "main" }}
+<nav><a href="/blog/">← Blog</a></nav>
+
+<article>
+  <h1>{{ .Title }}</h1>
+  <p class="author">
+    {{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}
+    · {{ .Date.Format "02.01.2006" }}
+    · {{ .ReadingTime }} min read
+  </p>
+  {{ with .Params.tags }}
+  <div class="tags">
+    {{ range . }}<a href="{{ "/tags/" | absURL }}{{ . | urlize }}/" class="tag">{{ . }}</a>{{ end }}
+  </div>
+  {{ end }}
+
+  {{ .Content }}
+
+  {{ $related := .Site.RegularPages.Related . | first 3 }}
+  {{ with $related }}
+  <div class="related-posts">
+    <h3>Related</h3>
+    <ul>
+      {{ range . }}
+      <li><span class="date">{{ .Date.Format "02.01.2006" }}</span> <a href="{{ .Permalink }}">{{ .Title }}</a></li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+</article>
+{{ end }}

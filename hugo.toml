@@ -1,0 +1,28 @@
+baseURL = "https://example.com/"
+languageCode = "uk"
+title = "My Blog"
+
+[pagination]
+  pagerSize = 20
+
+[markup]
+  [markup.highlight]
+    codeFences = false
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[params]
+  author = "whitetrd"
+  description = "Personal blog about tech and AI"
+  socials_telegram = ""
+  socials_github = ""
+  socials_twitter = ""
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5

@@ -1,0 +1,23 @@
+{{ define "main" }}
+<nav><a href="/">← Home</a></nav>
+
+<h1>{{ .Title | default "Blog" }}</h1>
+
+{{ with .Content }}
+<div>{{ . }}</div>
+{{ end }}
+
+<ul class="posts">
+  {{ range .Pages.ByDate.Reverse }}
+  <li>
+    <span class="date">{{ .Date.Format "02.01.2006" }}</span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ with .Params.tags }}
+    <div class="tags">
+      {{ range . }}<span class="tag">{{ . }}</span>{{ end }}
+    </div>
+    {{ end }}
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

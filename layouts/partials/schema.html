@@ -1,0 +1,34 @@
+{{ if .IsPage }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ .Title | jsonify }},
+  "datePublished": {{ .Date.Format "2006-01-02" | jsonify }},
+  {{ with .Lastmod }}"dateModified": {{ .Format "2006-01-02" | jsonify }},{{ end }}
+  "author": {
+    "@type": "Person",
+    "name": {{ .Params.author | default .Site.Params.author | jsonify }}
+  },
+  "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ .Summary | plainify | truncate 160 | jsonify }}{{ end }},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ .Permalink | jsonify }}
+  }
+}
+</script>
+{{ else if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ .Site.Title | jsonify }},
+  "url": {{ .Site.BaseURL | jsonify }},
+  "description": {{ .Site.Params.description | jsonify }},
+  "author": {
+    "@type": "Person",
+    "name": {{ .Site.Params.author | jsonify }}
+  }
+}
+</script>
+{{ end }}

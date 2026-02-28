@@ -1,0 +1,24 @@
+{{ define "main" }}
+<h1>{{ .Site.Title }}</h1>
+<p class="intro">{{ .Site.Params.description }}</p>
+
+{{ with .Site.Params.socials_telegram }}<a href="https://t.me/{{ . }}">Telegram</a> {{ end }}
+{{ with .Site.Params.socials_github }}<a href="https://github.com/{{ . }}">GitHub</a> {{ end }}
+{{ with .Site.Params.socials_twitter }}<a href="https://x.com/{{ . }}">X</a> {{ end }}
+
+<h2>Latest from blog</h2>
+
+<ul class="posts">
+  {{ range (where .Site.RegularPages "Section" "blog").ByDate.Reverse | first 10 }}
+  <li>
+    <span class="date">{{ .Date.Format "02.01.2006" }}</span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+  </li>
+  {{ end }}
+</ul>
+
+{{ $total := len (where .Site.RegularPages "Section" "blog") }}
+{{ if gt $total 10 }}
+<p><a href="/blog/">All posts ({{ $total }})</a></p>
+{{ end }}
+{{ end }}
