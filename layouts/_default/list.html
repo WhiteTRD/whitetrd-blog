@@ -1,10 +1,22 @@
 {{ define "main" }}
+{{ if eq .Kind "term" }}
+<nav><a href="/blog/">← Blog</a></nav>
+<h1>#{{ .Data.Term }}</h1>
+{{ else }}
 <nav><a href="/">← Home</a></nav>
-
 <h1>{{ .Title | default "Blog" }}</h1>
+{{ end }}
 
 {{ with .Content }}
 <div>{{ . }}</div>
+{{ end }}
+
+{{ with .Site.Taxonomies.tags }}
+<div class="tags">
+  {{ range .ByCount }}
+  <a href="{{ "/tags/" | absURL }}{{ .Term | urlize }}/" class="tag{{ if and (eq $.Kind "term") (eq $.Data.Term .Term) }} active{{ end }}">{{ .Term }} ({{ .Count }})</a>
+  {{ end }}
+</div>
 {{ end }}
 
 <ul class="posts">
@@ -12,11 +24,6 @@
   <li>
     <span class="date">{{ .Date.Format "02.01.2006" }}</span>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
-    {{ with .Params.tags }}
-    <div class="tags">
-      {{ range . }}<span class="tag">{{ . }}</span>{{ end }}
-    </div>
-    {{ end }}
   </li>
   {{ end }}
 </ul>
