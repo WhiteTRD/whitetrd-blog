@@ -1,17 +1,34 @@
 {{ define "main" }}
-<h1>{{ .Site.Title }}</h1>
+<p><strong>{{ .Site.Params.author }}</strong></p>
 <p class="intro">{{ .Site.Params.description }}</p>
 
-{{ with .Site.Params.socials_telegram }}<a href="https://t.me/{{ . }}">Telegram</a> {{ end }}
-{{ with .Site.Params.socials_github }}<a href="https://github.com/{{ . }}">GitHub</a> {{ end }}
-{{ with .Site.Params.socials_twitter }}<a href="https://x.com/{{ . }}">X</a> {{ end }}
+<div class="dir-listing">
+  {{ range $term, $pages := .Site.Taxonomies.categories }}
+    {{ $visiblePages := slice }}
+    {{ range $pages.Pages }}
+      {{ if and (eq .Section "blog") (ne .Params.private true) }}
+        {{ $visiblePages = $visiblePages | append . }}
+      {{ end }}
+    {{ end }}
+    {{ $count := len $visiblePages }}
+    {{ if $visiblePages }}
+    <div class="dir-entry">
+      <a href="/categories/{{ $term | urlize }}/">{{ $term }}/</a>
+      <span class="dir-count">{{ $count }} {{ if eq $count 1 }}post{{ else }}posts{{ end }}</span>
+    </div>
+    {{ end }}
+  {{ end }}
+  <div class="dir-entry">
+    <a href="/about/">about</a>
+  </div>
+</div>
 
-<h2>Latest from blog</h2>
+<hr>
 
 <ul class="posts">
   {{ range (where (where .Site.RegularPages "Section" "blog") "Params.private" "ne" true).ByDate.Reverse | first 10 }}
   <li>
-    <span class="date">{{ .Date.Format "02.01.2006" }}</span>
+    <span class="date">{{ .Date.Format "02.01" }}</span>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
     {{ with .Description }}<br><span class="excerpt">{{ . | truncate 100 }}</span>{{ end }}
   </li>

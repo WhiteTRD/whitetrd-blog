@@ -1,8 +1,4 @@
 {{ define "main" }}
-<nav><a href="/blog/">← Blog</a></nav>
-
-<h1>Tags</h1>
-
 {{ with .Site.Taxonomies.tags }}
 <div class="tags">
   {{ range .ByCount }}
