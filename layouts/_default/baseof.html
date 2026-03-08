@@ -68,8 +68,13 @@
 
     * { box-sizing: border-box; }
 
+    html {
+      background: var(--bg-primary);
+    }
+
     body {
       font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Fira Code', 'Menlo', 'Consolas', monospace;
+      font-weight: 300;
       max-width: 640px;
       margin: 40px auto;
       padding: 0 20px;
@@ -79,6 +84,10 @@
       color: var(--text-primary);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    strong, b {
+      font-weight: 600;
     }
 
     ::selection {
@@ -101,6 +110,10 @@
       color: var(--accent);
     }
 
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+
     h1 {
       font-size: 22px;
       margin-bottom: 8px;
@@ -108,7 +121,7 @@
     }
 
     h2 {
-      font-size: 15px;
+      font-size: 17px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       border-bottom: 1px solid var(--border-primary);
@@ -118,8 +131,7 @@
     }
 
     h3 {
-      font-size: 14px;
-      font-weight: bold;
+      font-size: 15px;
       margin-top: 24px;
       margin-bottom: 8px;
     }
