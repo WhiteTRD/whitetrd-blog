@@ -2,7 +2,8 @@
 title: "Мінімалістичний блог на Hugo за 30 хвилин"
 date: 2026-02-27
 description: "Monospace, zero JS, dark mode — створюємо блог в стилі хакерської естетики"
-tags: ["hugo", "web", "design"]
+tags: ["hugo", "web-dev", "design"]
+categories: ["web-dev"]
 ---
 
 ## Чому Hugo

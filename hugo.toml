@@ -2,12 +2,18 @@ baseURL = "https://whitetrd-blog.pages.dev/"
 languageCode = "uk"
 title = "My Blog"
 
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
 [pagination]
   pagerSize = 20
 
 [markup]
   [markup.highlight]
-    codeFences = false
+    codeFences = true
+    noClasses = true
+    style = "monokailight"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true

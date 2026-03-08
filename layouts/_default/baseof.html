@@ -3,45 +3,123 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <link rel="canonical" href="{{ .Permalink }}">
   <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | absURL }}">
+
+  {{/* OG Meta */}}
+  <meta property="og:title" content="{{ .Title | default .Site.Title }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+
+  {{ if .Params.private }}<meta name="robots" content="noindex, nofollow">{{ end }}
+
   {{ partial "schema.html" . }}
   <style>
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f7;
+      --bg-tertiary: #e8e8ed;
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-tertiary: #86868b;
+      --accent: #0066cc;
+      --accent-hover: #0055b3;
+      --border-primary: #d2d2d7;
+      --border-secondary: #e5e5ea;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 2px 8px rgba(0,0,0,0.08);
+      --selection-bg: #b3d7ff;
+      --selection-text: #000;
+      --code-bg: #f5f5f7;
+      --callout-bg: #f5f5f7;
+      --callout-warning: #cc0000;
+      --callout-insight: #006600;
+      --callout-info: #0000cc;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #252525;
+        --bg-tertiary: #2f2f2f;
+        --text-primary: #e5e5e7;
+        --text-secondary: #9b9b9b;
+        --text-tertiary: #6e6e73;
+        --accent: #5aadff;
+        --accent-hover: #7abfff;
+        --border-primary: #3a3a3a;
+        --border-secondary: #2f2f2f;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+        --shadow-md: 0 2px 8px rgba(0,0,0,0.3);
+        --selection-bg: #264f78;
+        --selection-text: #fff;
+        --code-bg: #252525;
+        --callout-bg: #252525;
+        --callout-warning: #f87171;
+        --callout-insight: #34d399;
+        --callout-info: #60a5fa;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
     body {
-      font-family: monospace;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      line-height: 1.6;
-      background: #fff;
-      color: #000;
+      font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Fira Code', 'Menlo', 'Consolas', monospace;
+      max-width: 640px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-size: 14px;
+      line-height: 1.7;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background: var(--selection-bg);
+      color: var(--selection-text);
     }
 
     a {
-      color: #0000EE;
+      color: var(--accent);
       text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.15s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
     }
 
     a:visited {
-      color: #551A8B;
+      color: var(--accent);
     }
 
     h1 {
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 8px;
       line-height: 1.3;
     }
 
     h2 {
-      font-size: 18px;
-      margin-top: 30px;
-      margin-bottom: 10px;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-primary);
+      padding-bottom: 6px;
+      margin-top: 32px;
+      margin-bottom: 12px;
     }
 
     h3 {
-      font-size: 16px;
+      font-size: 14px;
+      font-weight: bold;
       margin-top: 24px;
       margin-bottom: 8px;
     }
@@ -60,41 +138,53 @@
     }
 
     .author {
-      color: #666;
+      color: var(--text-secondary);
       font-size: 13px;
       margin-bottom: 24px;
     }
 
     .intro {
-      color: #666;
+      color: var(--text-secondary);
       margin-bottom: 8px;
     }
 
     pre {
-      background: #f8f8f8;
-      border: 2px solid #000;
+      background: var(--code-bg);
+      border: 1px solid var(--border-primary);
+      border-radius: 4px;
       padding: 16px;
       overflow-x: auto;
       font-size: 13px;
       line-height: 1.5;
       margin: 24px 0;
-      color: #000;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
     }
 
-    pre code, pre span {
-      color: inherit !important;
-      background: none !important;
+    pre::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    pre::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    pre::-webkit-scrollbar-thumb {
+      background: var(--border-primary);
+      border-radius: 3px;
     }
 
     code {
-      font-family: monospace;
-      background: #eee;
+      font-family: inherit;
+      background: var(--code-bg);
       padding: 1px 4px;
+      border-radius: 3px;
     }
 
     pre code {
       background: none;
       padding: 0;
+      border-radius: 0;
     }
 
     img {
@@ -110,16 +200,16 @@
 
     figcaption {
       font-size: 13px;
-      color: #666;
+      color: var(--text-secondary);
       margin-top: 6px;
     }
 
     blockquote {
-      border-left: 3px solid #000;
+      border-left: 3px solid var(--border-primary);
       margin: 20px 0;
       padding: 8px 16px;
       font-style: italic;
-      background: #f8f8f8;
+      background: var(--bg-secondary);
     }
 
     blockquote p {
@@ -133,39 +223,40 @@
     }
 
     th, td {
-      border: 1px solid #000;
+      border: 1px solid var(--border-primary);
       padding: 8px;
       text-align: left;
       vertical-align: top;
     }
 
     th {
-      background: #f5f5f5;
+      background: var(--bg-secondary);
     }
 
     hr {
       border: none;
-      border-top: 1px solid #000;
+      border-top: 1px solid var(--border-primary);
       margin: 30px 0;
     }
 
     .callout {
-      border: 1px solid #000;
+      border: 1px solid var(--border-primary);
       padding: 12px 16px;
       margin: 20px 0;
+      border-radius: 4px;
+      background: var(--callout-bg);
     }
 
     .callout.warning {
-      border-left: 3px solid #c00;
+      border-left: 3px solid var(--callout-warning);
     }
 
     .callout.insight {
-      border-left: 3px solid #060;
+      border-left: 3px solid var(--callout-insight);
     }
 
     .callout.cta {
-      border: 2px solid #000;
-      background: #f5f5f5;
+      border: 2px solid var(--border-primary);
       padding: 16px 20px;
     }
 
@@ -183,7 +274,7 @@
     }
 
     .callout.info {
-      border-left: 3px solid #00c;
+      border-left: 3px solid var(--callout-info);
     }
 
     .tags {
@@ -196,18 +287,21 @@
     .tag {
       font-size: 12px;
       padding: 2px 8px;
-      border: 1px solid #000;
+      border: 1px solid var(--border-primary);
+      border-radius: 3px;
       text-decoration: none;
-      color: #000;
+      color: var(--text-secondary);
+      transition: all 0.15s;
     }
 
     .tag:visited {
-      color: #000;
+      color: var(--text-secondary);
     }
 
     .tag:hover, .tag.active {
-      background: #000;
-      color: #fff;
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      border-color: var(--text-primary);
     }
 
     .posts {
@@ -220,9 +314,14 @@
     }
 
     .date {
-      color: #666;
+      color: var(--text-secondary);
       font-size: 13px;
       margin-right: 8px;
+    }
+
+    .excerpt {
+      color: var(--text-tertiary);
+      font-size: 13px;
     }
 
     .youtube-preview {
@@ -238,7 +337,7 @@
     .sources {
       margin-top: 40px;
       padding-top: 20px;
-      border-top: 1px solid #000;
+      border-top: 1px solid var(--border-primary);
     }
 
     .sources h3 {
@@ -258,7 +357,7 @@
     .related-posts {
       margin-top: 30px;
       padding-top: 20px;
-      border-top: 1px solid #000;
+      border-top: 1px solid var(--border-primary);
     }
 
     .related-posts h3 {
@@ -280,111 +379,104 @@
       margin: 30px 0 20px;
     }
 
-    footer {
-      margin-top: 30px;
-      text-align: center;
+    /* File tree navigation */
+    .filetree {
+      margin-bottom: 24px;
       font-size: 13px;
-      color: #666;
     }
 
-    @media (prefers-color-scheme: dark) {
+    .filetree details {
+      margin: 0;
+    }
+
+    .filetree summary {
+      cursor: pointer;
+      padding: 2px 0;
+      list-style: none;
+      color: var(--text-secondary);
+    }
+
+    .filetree summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .filetree summary::before {
+      content: "▸ ";
+    }
+
+    .filetree details[open] > summary::before {
+      content: "▾ ";
+    }
+
+    .ft-folder {
+      font-weight: bold;
+      color: var(--text-primary);
+    }
+
+    .ft-file {
+      display: block;
+      padding: 1px 0 1px 16px;
+      text-decoration: none;
+      color: var(--text-secondary);
+    }
+
+    .ft-file:visited {
+      color: var(--text-secondary);
+    }
+
+    .ft-file:hover {
+      color: var(--accent);
+    }
+
+    .ft-active {
+      color: var(--text-primary);
+      font-weight: bold;
+    }
+
+    .ft-active:visited {
+      color: var(--text-primary);
+    }
+
+    .ft-sep {
+      border-top: 1px solid var(--border-secondary);
+      margin: 6px 0;
+    }
+
+    /* Focus visible */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    footer {
+      margin-top: 64px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 480px) {
       body {
-        background: #212121;
-        color: #d1d5db;
+        margin: 20px auto;
+        font-size: 13px;
       }
 
-      a {
-        color: #7ab0ff;
-      }
-
-      a:visited {
-        color: #c4a6f5;
-      }
-
-      .author, .intro, figcaption, footer, .date {
-        color: #9b9b9b;
-      }
-
-      .callout {
-        border-color: #3a3a3a;
-      }
-
-      .callout.cta {
-        background: #2f2f2f;
-        border-color: #4a4a4a;
-      }
-
-      .callout.insight {
-        border-left-color: #34d399;
-      }
-
-      .callout.warning {
-        border-left-color: #f87171;
-      }
-
-      .callout.info {
-        border-left-color: #60a5fa;
+      h1 {
+        font-size: 20px;
       }
 
       pre {
-        background: #2f2f2f !important;
-        border-color: #3a3a3a;
-        color: #d1d5db;
-      }
-
-      code {
-        background: #2f2f2f;
-        color: #d1d5db;
-      }
-
-      pre code, pre span {
-        color: #d1d5db !important;
-        background: none !important;
-      }
-
-      .highlight pre {
-        background-color: #2f2f2f !important;
-      }
-
-      th {
-        background: #2f2f2f;
-      }
-
-      th, td {
-        border-color: #3a3a3a;
-      }
-
-      blockquote {
-        border-left-color: #3a3a3a;
-        background: #2f2f2f;
-      }
-
-      hr {
-        border-top-color: #3a3a3a;
-      }
-
-      .sources, .related-posts {
-        border-top-color: #3a3a3a;
-      }
-
-      .tag {
-        border-color: #4a4a4a;
-        color: #d1d5db;
-      }
-
-      .tag:visited {
-        color: #d1d5db;
-      }
-
-      .tag:hover, .tag.active {
-        background: #4a4a4a;
-        color: #fff;
+        font-size: 12px;
+        padding: 12px;
       }
     }
   </style>
 </head>
 <body>
-  {{ block "main" . }}{{ end }}
+  {{ partial "filetree.html" . }}
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
   <footer>
     <p>&copy; {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}</p>
   </footer>

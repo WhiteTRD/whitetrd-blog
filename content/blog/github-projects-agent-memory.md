@@ -2,7 +2,8 @@
 title: "GitHub Projects як довгострокова пам'ять для AI-агентів"
 date: 2026-02-28
 description: "Як використовувати GitHub Issues + Projects як persistent memory для Claude Code та інших AI-агентів"
-tags: ["ai", "agents", "claude-code", "github"]
+tags: ["claude-code", "ai-agents", "github"]
+categories: ["ai-agents"]
 ---
 
 ## Проблема

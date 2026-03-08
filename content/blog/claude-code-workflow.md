@@ -2,7 +2,8 @@
 title: "Ефективний workflow з Claude Code"
 date: 2026-02-26
 description: "Практичні прийоми роботи з Claude Code: CLAUDE.md, hooks, memory, та організація задач"
-tags: ["ai", "claude-code", "productivity"]
+tags: ["claude-code", "productivity"]
+categories: ["ai-agents"]
 ---
 
 ## CLAUDE.md — мозок проєкту
