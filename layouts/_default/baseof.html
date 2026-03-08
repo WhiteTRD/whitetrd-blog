@@ -440,6 +440,33 @@
         padding: 12px;
       }
     }
+
+    /* View Transitions */
+    @view-transition { navigation: auto; }
+
+    .prompt-nav { view-transition-name: breadcrumb; }
+    main { view-transition-name: content; }
+
+    ::view-transition-old(content) {
+      animation: 150ms ease-out both fade-out-slide;
+    }
+    ::view-transition-new(content) {
+      animation: 200ms ease-out both fade-in-slide;
+    }
+
+    @keyframes fade-out-slide {
+      to { opacity: 0; transform: translateY(8px); }
+    }
+    @keyframes fade-in-slide {
+      from { opacity: 0; transform: translateY(-8px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      ::view-transition-old(content),
+      ::view-transition-new(content) {
+        animation-duration: 0s;
+      }
+    }
   </style>
 </head>
 <body>
