@@ -1,0 +1,31 @@
+<nav class="prompt-nav">
+  {{- if .IsHome -}}
+    <span class="prompt-current">~</span>
+  {{- else -}}
+    <a href="/">~</a>
+  {{- end -}}
+
+  {{- if eq .RelPermalink "/about/" -}}
+    <span class="prompt-sep"> / </span><span class="prompt-current">about</span>
+  {{- else if and (eq .Kind "term") (eq .Data.Singular "category") -}}
+    <span class="prompt-sep"> / </span><span class="prompt-current">{{ .Data.Term }}</span>
+  {{- else if and (eq .Kind "term") (eq .Data.Singular "tag") -}}
+    <span class="prompt-sep"> / </span><span class="prompt-current">#{{ .Data.Term }}</span>
+  {{- else if eq .Kind "taxonomy" -}}
+    <span class="prompt-sep"> / </span><span class="prompt-current">{{ .Data.Plural }}</span>
+  {{- else if and (eq .Kind "section") (eq .Section "blog") -}}
+    <span class="prompt-sep"> / </span><span class="prompt-current">blog</span>
+  {{- else if and .IsPage (eq .Section "blog") -}}
+    {{- $cats := .Params.categories | default slice -}}
+    {{- if $cats -}}
+      {{- $cat := index $cats 0 -}}
+      <span class="prompt-sep"> / </span><a href="/categories/{{ $cat | urlize }}/">{{ $cat }}</a>
+      <span class="prompt-sep"> / </span><span class="prompt-current">{{ .File.ContentBaseName }}</span>
+    {{- else -}}
+      <span class="prompt-sep"> / </span><a href="/blog/">blog</a>
+      <span class="prompt-sep"> / </span><span class="prompt-current">{{ .File.ContentBaseName }}</span>
+    {{- end -}}
+  {{- end -}}
+
+  <span class="prompt-dollar"> $</span>
+</nav>

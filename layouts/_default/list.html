@@ -1,29 +1,18 @@
 {{ define "main" }}
 {{ if eq .Kind "term" }}
-<nav><a href="/blog/">← Blog</a></nav>
-<h1>#{{ .Data.Term }}</h1>
+  {{ $visible := where .Pages "Params.private" "ne" true }}
+  <p>{{ len $visible }} {{ if eq (len $visible) 1 }}post{{ else }}posts{{ end }}</p>
 {{ else }}
-<nav><a href="/">← Home</a></nav>
-<h1>{{ .Title | default "Blog" }}</h1>
-{{ end }}
-
-{{ with .Content }}
-<div>{{ . }}</div>
-{{ end }}
-
-{{ with .Site.Taxonomies.tags }}
-<div class="tags">
-  {{ range .ByCount }}
-  <a href="{{ "/tags/" | absURL }}{{ .Term | urlize }}/" class="tag{{ if and (eq $.Kind "term") (eq $.Data.Term .Term) }} active{{ end }}">{{ .Term }} ({{ .Count }})</a>
-  {{ end }}
-</div>
+  <h1>{{ .Title | default "Blog" }}</h1>
+  {{ with .Content }}<div>{{ . }}</div>{{ end }}
 {{ end }}
 
 <ul class="posts">
   {{ range where .Pages "Params.private" "ne" true }}
   <li>
-    <span class="date">{{ .Date.Format "02.01.2006" }}</span>
+    <span class="date">{{ .Date.Format "02.01" }}</span>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ with .Description }}<br><span class="excerpt">{{ . | truncate 100 }}</span>{{ end }}
   </li>
   {{ end }}
 </ul>

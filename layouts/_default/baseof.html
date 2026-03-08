@@ -379,67 +379,37 @@
       margin: 30px 0 20px;
     }
 
-    /* File tree navigation */
-    .filetree {
+    /* Prompt navigation */
+    .prompt-nav {
       margin-bottom: 24px;
-      font-size: 13px;
+      font-size: 14px;
     }
 
-    .filetree details {
-      margin: 0;
+    .prompt-sep {
+      color: var(--text-tertiary);
     }
 
-    .filetree summary {
-      cursor: pointer;
-      padding: 2px 0;
-      list-style: none;
-      color: var(--text-secondary);
-    }
-
-    .filetree summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .filetree summary::before {
-      content: "▸ ";
-    }
-
-    .filetree details[open] > summary::before {
-      content: "▾ ";
-    }
-
-    .ft-folder {
-      font-weight: bold;
+    .prompt-current {
       color: var(--text-primary);
     }
 
-    .ft-file {
-      display: block;
-      padding: 1px 0 1px 16px;
-      text-decoration: none;
+    .prompt-dollar {
+      color: var(--text-tertiary);
+    }
+
+    /* Directory listing */
+    .dir-listing {
+      margin: 16px 0;
+      padding-left: 16px;
+    }
+
+    .dir-entry {
+      line-height: 1.8;
+    }
+
+    .dir-count {
       color: var(--text-secondary);
-    }
-
-    .ft-file:visited {
-      color: var(--text-secondary);
-    }
-
-    .ft-file:hover {
-      color: var(--accent);
-    }
-
-    .ft-active {
-      color: var(--text-primary);
-      font-weight: bold;
-    }
-
-    .ft-active:visited {
-      color: var(--text-primary);
-    }
-
-    .ft-sep {
-      border-top: 1px solid var(--border-secondary);
-      margin: 6px 0;
+      margin-left: 12px;
     }
 
     /* Focus visible */
@@ -473,7 +443,7 @@
   </style>
 </head>
 <body>
-  {{ partial "filetree.html" . }}
+  {{ partial "breadcrumb.html" . }}
   <main>
     {{ block "main" . }}{{ end }}
   </main>
