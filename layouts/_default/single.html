@@ -3,11 +3,13 @@
 
 <article>
   <h1>{{ .Title }}</h1>
+  {{ if ne .RelPermalink "/about/" }}
   <p class="author">
     {{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}
     · {{ .Date.Format "02.01.2006" }}
     · {{ .ReadingTime }} min read
   </p>
+  {{ end }}
   {{ with .Params.tags }}
   <div class="tags">
     {{ range . }}<a href="{{ "/tags/" | absURL }}{{ . | urlize }}/" class="tag">{{ . }}</a>{{ end }}

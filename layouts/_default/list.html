@@ -20,7 +20,7 @@
 {{ end }}
 
 <ul class="posts">
-  {{ range .Pages.ByDate.Reverse }}
+  {{ range where .Pages "Params.private" "ne" true }}
   <li>
     <span class="date">{{ .Date.Format "02.01.2006" }}</span>
     <a href="{{ .Permalink }}">{{ .Title }}</a>

@@ -9,15 +9,16 @@
 <h2>Latest from blog</h2>
 
 <ul class="posts">
-  {{ range (where .Site.RegularPages "Section" "blog").ByDate.Reverse | first 10 }}
+  {{ range (where (where .Site.RegularPages "Section" "blog") "Params.private" "ne" true).ByDate.Reverse | first 10 }}
   <li>
     <span class="date">{{ .Date.Format "02.01.2006" }}</span>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ with .Description }}<br><span class="excerpt">{{ . | truncate 100 }}</span>{{ end }}
   </li>
   {{ end }}
 </ul>
 
-{{ $total := len (where .Site.RegularPages "Section" "blog") }}
+{{ $total := len (where (where .Site.RegularPages "Section" "blog") "Params.private" "ne" true) }}
 {{ if gt $total 10 }}
 <p><a href="/blog/">All posts ({{ $total }})</a></p>
 {{ end }}

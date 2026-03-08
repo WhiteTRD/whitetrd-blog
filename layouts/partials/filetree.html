@@ -1,0 +1,28 @@
+<nav class="filetree">
+  <a href="/" class="ft-file{{ if .IsHome }} ft-active{{ end }}">/index</a>
+  <a href="/about/" class="ft-file{{ if eq .Section "about" }} ft-active{{ end }}">/about</a>
+  <div class="ft-sep"></div>
+
+  {{ $currentTags := slice }}
+  {{ with .Params.tags }}{{ $currentTags = . }}{{ end }}
+
+  {{ $allPosts := where (where .Site.RegularPages "Section" "blog") "Params.private" "ne" true }}
+
+  {{ range $term, $pages := .Site.Taxonomies.tags }}
+    {{ $visiblePages := slice }}
+    {{ range $pages.Pages }}
+      {{ if and (eq .Section "blog") (ne .Params.private true) }}
+        {{ $visiblePages = $visiblePages | append . }}
+      {{ end }}
+    {{ end }}
+    {{ if $visiblePages }}
+    {{ $isOpen := in $currentTags $term }}
+    <details{{ if $isOpen }} open{{ end }}>
+      <summary><span class="ft-folder">/{{ $term }}</span></summary>
+      {{ range $visiblePages }}
+      <a href="{{ .Permalink }}" class="ft-file{{ if eq $.Permalink .Permalink }} ft-active{{ end }}">{{ .Title }}</a>
+      {{ end }}
+    </details>
+    {{ end }}
+  {{ end }}
+</nav>
