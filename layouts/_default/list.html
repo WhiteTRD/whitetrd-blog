@@ -12,7 +12,6 @@
   <li>
     <span class="date">{{ .Date.Format "02.01" }}</span>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
-    {{ with .Description }}<br><span class="excerpt">{{ . | truncate 100 }}</span>{{ end }}
   </li>
   {{ end }}
 </ul>
