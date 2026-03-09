@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="light dark">
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <link rel="canonical" href="{{ .Permalink }}">
@@ -21,25 +21,49 @@
   {{ partial "schema.html" . }}
   <style>
     :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #141414;
-      --bg-tertiary: #1a1a1a;
-      --text-primary: #d4d4d4;
-      --text-secondary: #888888;
-      --text-tertiary: #555555;
-      --accent: #999999;
-      --accent-hover: #b0b0b0;
-      --border-primary: #333333;
-      --border-secondary: #1a1a1a;
-      --shadow-sm: none;
-      --shadow-md: none;
-      --selection-bg: #333333;
-      --selection-text: #d4d4d4;
-      --code-bg: #141414;
-      --callout-bg: #141414;
-      --callout-warning: #f87171;
-      --callout-insight: #34d399;
-      --callout-info: #60a5fa;
+      --bg-primary: #fafafa;
+      --bg-secondary: #f0f0f0;
+      --bg-tertiary: #e5e5e5;
+      --text-primary: #1a1a1a;
+      --text-secondary: #666666;
+      --text-tertiary: #999999;
+      --accent: #555555;
+      --accent-hover: #333333;
+      --border-primary: #d0d0d0;
+      --border-secondary: #e0e0e0;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 2px 8px rgba(0,0,0,0.1);
+      --selection-bg: #d0d0d0;
+      --selection-text: #1a1a1a;
+      --code-bg: #f0f0f0;
+      --callout-bg: #f0f0f0;
+      --callout-warning: #cc3333;
+      --callout-insight: #2d8a56;
+      --callout-info: #3366cc;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #0a0a0a;
+        --bg-secondary: #141414;
+        --bg-tertiary: #1a1a1a;
+        --text-primary: #d4d4d4;
+        --text-secondary: #888888;
+        --text-tertiary: #555555;
+        --accent: #999999;
+        --accent-hover: #b0b0b0;
+        --border-primary: #333333;
+        --border-secondary: #1a1a1a;
+        --shadow-sm: none;
+        --shadow-md: none;
+        --selection-bg: #333333;
+        --selection-text: #d4d4d4;
+        --code-bg: #141414;
+        --callout-bg: #141414;
+        --callout-warning: #f87171;
+        --callout-insight: #34d399;
+        --callout-info: #60a5fa;
+      }
     }
 
     pre span {
