@@ -11,38 +11,27 @@ Ethereum п'ять тижнів стоїть у range 1800–2199. Я аналі
 
 ---
 
-## Narrative: TDA Chain
+## TDA Chain
 
 Структура аналізу — від старшого TF до молодшого. Кожен рівень підтверджує або спростовує bias. Я будую causal chain: причина на 1M, підтвердження на D1, вхід на H4/H1.
 
-```
-narrative.txt — TDA Chain Table
-═══════════════════════════════════════════════════════════════
-  TF   │  Structure         │  Key Level          │  Role
-═══════════════════════════════════════════════════════════════
-  1M   │  Bearish (decel.)  │  RB 1748-1965       │  Discount zone
-       │                    │  EQ 2519            │  Macro reference
-───────┼────────────────────┼─────────────────────┼───────────
-  W1   │  Base formation    │  KL 1800 (Fractal)  │  Idea anchor
-       │                    │  FVG 2270-2397      │  Target
-       │                    │  Last FH 3403       │  Macro high
-───────┼────────────────────┼─────────────────────┼───────────
-  D1   │  Structural shift  │  FVG 1870-1975      │  Demand
-       │                    │  Strong Low 1800    │  Invalidation
-       │                    │  Strong High 2199   │  T1
-───────┼────────────────────┼─────────────────────┼───────────
-  H4   │  OF shift (1916)   │  FVG 1963-1974      │  Entry zone
-       │                    │  Strong Low 1916    │  Local SL
-       │                    │  FTA 2055-2083      │  First resist.
-───────┼────────────────────┼─────────────────────┼───────────
-  H1   │  Bullish OF        │  Last FH 2022       │  Momentum
-       │                    │  Last FL 1981       │  Micro support
-═══════════════════════════════════════════════════════════════
-```
+На **1M** ціна торгується нижче EQ (2519) — ми в discount. Макро-тренд bearish, але деселерація очевидна: RB 1748–1965 вже swept fractal low. Це не падіння — це уповільнення.
 
-На 1M ціна 2024 торгується нижче EQ (2519) — ми в discount. Макро-тренд bearish, але деселерація очевидна: RB 1748–1965 вже swept fractal low. Це не падіння — це уповільнення.
+**W1** сформував base на 1800 після sweep. П'ять тижнів ціна будує основу, W1 FVG 2270–2397 залишається незаповненим — це target.
 
-W1 сформував base на 1800 після sweep. D1 підтвердив structural shift серією HH (2148 → 2199) і HL (1800 → 1835 → 1907 → 1916). H4 зламав FH 1980 і побудував OF (Order Flow) shift від 1916.
+**D1** підтвердив structural shift серією HH (2148 → 2199) і HL (1800 → 1835 → 1907 → 1916). Strong High на 2199 — перша серйозна ціль. D1 FVG 1870–1975 працює як demand zone.
+
+**H4** зламав FH 1980 і побудував OF (Order Flow) shift від 1916. FVG 1963–1974 — зона entry. FTA 2055–2083 — перша перешкода.
+
+**H1** підтверджує bullish OF з Last FH на 2022 і Last FL на 1981.
+
+| TF | Structure | Key Level | VC |
+|----|-----------|-----------|-----|
+| 1M | Bearish (deceleration) | RB 1748–1965 | — |
+| W1 | Base formation | KL 1800 (Fractal) | — |
+| D1 | Structural shift | Strong High 2199 | HH+HL series |
+| H4 | OF shift (1916) | FVG 1963–1974 | displacement |
+| H1 | Bullish OF | Last FH 2022 | — |
 
 {{< callout type="insight" >}}
 Causal chain: 1M Discount + RB → W1 Fractal KL 1800 → D1 VC (structural shift) → H4 OF shift → H1 bullish refinement. Кожен TF підтверджує попередній.
@@ -50,102 +39,29 @@ Causal chain: 1M Discount + RB → W1 Fractal KL 1800 → D1 VC (structural shif
 
 ---
 
-## Structure: Вертикальна цінова шкала
+## Structure
 
-Ось як виглядає цінова карта від 1M до H1. Я розмістив усі ключові рівні на одній шкалі, щоб бачити confluence зон.
+Найвищий актуальний рівень — W1 Last FH 3403, але реальна зона інтересу починається з 1M EQ 2519. Нижче — W1 FVG 2270–2397, який є target всього аналізу.
 
-```
-structure.txt — Vertical Price Scale
+D1 Strong High 2199 — перша серйозна перешкода. Пробій відкриває шлях до FVG зони. Нижче ціни — confluence H4 FVG (1963–1975) і H1 FVG формує primary entry zone. Зверніть увагу: це збіг двох незалежних FVG на різних таймфреймах.
 
-  3403 ════════════════════════════════  W1 Last FH
-         │
-         │         (macro gap)
-         │
-  2519 ────────────────────────────────  1M EQ
-         │
-  2395 ◎ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  W1 FVG top — T2
-  2270   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  W1 FVG bottom
-         │
-  2199 ════════════════════════════════  D1 Strong High — T1
-         │
-  2148 ────────────────────────────────  D1 prev HH
-         │
-  2083 ────────────────────────────────  H4 FTA top
-  2055 ────────────────────────────────  H4 FTA / D1 SNR
-         │
-  2022 ────────────────────────────────  H1 Last FH
-         │
-  1992 ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈  H1 IDM
-  1981 ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈  H1 IDM / Last FL
-         │
-  1975 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  H4/H1 FVG top
-  1963 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  H4/H1 FVG bottom
-         │                                ◆ PRIMARY ENTRY
-  1937 ────────────────────────────────  H4 RB top
-  1916 ════════════════════════════════  H4 Strong Low — SL zone
-         │
-  1907 ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈  D1 prev HL
-  1870 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  D1 FVG bottom
-         │                                ◆ PLAN B ENTRY
-  1835 ────────────────────────────────  D1 prev HL
-         │
-  1800 ════════════════════════════════  D1 Strong Low / W1 KL
-  1748 ════════════════════════════════  1M RB bottom
-         │
-  1385 ────────────────────────────────  1M FL (last resort)
-```
-
-Зверніть увагу на зону 1963–1975. Тут confluence H4 FVG і H1 FVG — це мій primary entry. Нижче — H4 Strong Low 1916, який тримає весь bullish сценарій локально.
-
-Вище — перша перешкода на 2055–2083 (H4 FTA / MB (Mitigation Block)). Пробій цієї зони відкриває шлях до D1 Strong High 2199 і далі на W1 FVG 2270–2397.
+H4 FTA 2055–2083 працює як Mitigation Block. Пробій цієї зони — підтвердження сили покупців. H4 Strong Low 1916 тримає весь bullish сценарій локально. D1 Strong Low 1800 + W1 KL — повна інвалідація.
 
 {{< chart src="/charts/ethusdt-w1-fractal-reversal-2395/d1.html" >}}
 
 ---
 
-## Liquidity Map
+## POI
 
-Я розділяю ліквідність на чотири категорії: MTV (Most Traded Volume), LTV (Low Traded Volume), LIQ (Liquidity), TA (Trouble Area). Це дає повну картину — де гроші, де пастки, де цілі.
+1. **1800 — D1 Strong Low + 1M RB + W1 KL** — лінія інвалідації всього аналізу. Закриття D1 нижче = повна відміна bias. Тричі підтверджений рівень: 1M RB + W1 fractal sweep + D1 VC anchor.
 
-```
-liquidity.txt — Supply/Demand Map + POI Table
-═══════════════════════════════════════════════════════════════
+2. **1916–1937 — H4 RB + Strong Low** — локальний стоп-лосс. Тримає H4 OF shift. Пробій активує Plan B і означає, що H4 structure зламана.
 
-  ▲ SUPPLY / RESISTANCE
-  │
-  │  2270-2397   W1 FVG (target supply)          ◎ POINT B
-  │  2199        D1 Strong High                  ◎ T1
-  │  2127-2199   D1 TA zone
-  │  2055-2083   H4 FTA / D1 SNR                 ──── resist.
-  │  2041-2055   D1 IFVG (Inverse FVG)           ~~~~ mixed
-  │
-  │─────────────── ◆ CURRENT PRICE ~2024 ──────────────────
-  │
-  │  1963-1975   H4/H1 FVG                       ▓▓ demand
-  │  1916-1937   H4 RB + Strong Low              ▓▓ demand
-  │  1870-1975   D1 FVG (wide demand)            ▓▓ demand
-  │  1800-1856   D1 RB                           ▓▓ demand
-  │  1748-1965   1M RB                           ════ KL
-  │
-  ▼ DEMAND / SUPPORT
+3. **1963–1975 — H4/H1 FVG** — primary entry zone. Confluence двох FVG в межах ширшого D1 FVG (1870–1975). Це не просто рівень — це зона, де три таймфрейми збігаються.
 
-═══════════════════════════════════════════════════════════════
+4. **2055–2083 — H4 FTA/MB** — перша перешкода для покупців. Зона часткового фіксування або trail stop. D1 SNR тут додає вагу.
 
-  POI Table (Ranked by Priority)
-═══════════════════════════════════════════════════════════════
-  #  │  Price        │  Type                │  Function
-═══════════════════════════════════════════════════════════════
-  1  │  1800         │  D1 SL + 1M RB + KL  │  INVALIDATION
-  2  │  1916-1937    │  H4 RB + SL          │  Local SL
-  3  │  1963-1975    │  H4/H1 FVG           │  PRIMARY ENTRY
-  4  │  2055-2083    │  H4 FTA/MB           │  First resistance
-  5  │  2270-2397    │  W1 FVG              │  TARGET (Point B)
-═══════════════════════════════════════════════════════════════
-```
-
-POI #1 (1800) — лінія життя всього аналізу. Закриття D1 нижче — повна інвалідація. POI #3 (1963–1975) — зона, де я чекаю реакцію. Це не просто рівень — це confluence H4 і H1 FVG в межах ширшого D1 FVG (1870–1975).
-
-POI #4 (2055–2083) буде першим тестом для покупців. H4 FTA тут виступає як Mitigation Block — ціна може затриматись. Я закладаю це у план як зону часткового фіксування або trail stop.
+5. **2270–2397 — W1 FVG** — target (Point B). Кінцева ціль TDA narrative. Незаповнений gap на W1 — магніт для ціни.
 
 {{< callout type="insight" >}}
 HRL (High-Resistance Liquidity) на 1800 — це не просто Strong Low. Це 1M RB + W1 fractal sweep + D1 VC anchor. Тричі підтверджений рівень. Поки він тримає — bias bullish.
@@ -157,83 +73,31 @@ HRL (High-Resistance Liquidity) на 1800 — це не просто Strong Low.
 
 Два сценарії. Plan A — основний, з entry на H4 FVG. Plan B — якщо ринок захоче глибший sweep перед розворотом. Обидва ведуть до однієї цілі — W1 FVG 2395.
 
-```
-plan.txt — Plan A: Bullish (Primary)
-═══════════════════════════════════════════════════════════════
+### Plan A — Bullish (Primary)
 
-  Bias: BULLISH
-  Narrative: W1 KL (1800) → D1 VC → W1 FVG target (2395)
-  Entry type: VC (Volume Confirmation) Entry
-  Trigger: H1 bullish close > 1990 after FVG touch
-
-                    ◎ T2: 2395 (W1 FVG)         R:R = 7.2
-                    │
-                    │        ▲
-                    │        ▲
-                    │        ▲
-                    ◎ T1: 2199 (D1 Strong High)  R:R = 3.9
-                    │        ▲
-  ──── 2083 ───────│──── H4 FTA ──── (resistance)
-  ──── 2055 ───────│────────────────
-                    │        ▲
-  ──── 2022 ───────│──── H1 FH ────
-                    │        ▲
-                    │
-     ┌──────────────────────────────┐
-     │  ENTRY ZONE: 1963-1975      │
-     │  H4/H1 FVG confluence       │
-     │  ◆ Wait for H1 VC           │
-     └──────────────────────────────┘
-                    │
-     ┌──────────────────────────────┐
-     │  SL: 1910                   │
-     │  Below H4 SL 1916           │
-     │  Risk: ~65 pts              │
-     └──────────────────────────────┘
-
-  Invalidation:
-    Local  → H4 close < 1916
-    Full   → D1 close < 1800
-
-═══════════════════════════════════════════════════════════════
-
-plan.txt — Plan B: Deeper Accumulation
-═══════════════════════════════════════════════════════════════
-
-  Bias: BEARISH short-term → BULLISH from deeper level
-  Narrative: Sweep 1835-1870 → D1 rejection → H4 VC
-  Trigger: H4 bullish displacement from D1 FVG
-
-                    ◎ T2: 2395 (W1 FVG)         R:R = 7.0
-                    │
-                    │        ▲
-                    │        ▲
-                    ◎ T1: 2199 (D1 Strong High)  R:R = 4.4
-                    │        ▲
-                    │        ▲
-  ──── 1975 ───────│──── H4 FVG ────
-  ──── 1916 ═══════│════ H4 SL ════ (broken in this scenario)
-                    │        ▲
-     ┌──────────────────────────────┐
-     │  ENTRY ZONE: 1835-1870      │
-     │  D1 FVG bottom              │
-     │  ◆ Wait for H4 VC           │
-     └──────────────────────────────┘
-                    │
-     ┌──────────────────────────────┐
-     │  SL: 1790                   │
-     │  Below D1 SL 1800           │
-     │  Risk: ~65 pts              │
-     └──────────────────────────────┘
-
-  Invalidation:
-    Full   → D1 close < 1800
-    Next   → 1385 (1M FL)
-
-═══════════════════════════════════════════════════════════════
-```
+- **Bias:** Bullish
+- **Narrative:** W1 KL (1800) → D1 VC → W1 FVG target (2395)
+- **Entry type:** VC Entry
+- **Entry zone:** 1963–1975 (H4/H1 FVG confluence)
+- **Trigger:** H1 bullish close > 1990 після FVG touch
+- **SL:** 1910 (нижче H4 Strong Low 1916, буфер 6 пунктів)
+- **T1:** 2199 (D1 Strong High) — R:R 3.9
+- **T2:** 2395 (W1 FVG) — R:R 7.2
+- **Invalidation:** H4 close < 1916 (local), D1 close < 1800 (full)
 
 Plan A дає R:R 3.9 до T1 і 7.2 до T2. Я чекаю pullback в зону 1963–1975 і H1 VC — bullish close вище 1990. Це підтвердить, що FVG працює як demand. Стоп під 1916 з буфером — на 1910.
+
+### Plan B — Deeper Accumulation
+
+- **Bias:** Bear short-term → Bull from deeper level
+- **Narrative:** Sweep 1835–1870 → D1 rejection → H4 VC
+- **Entry type:** IDM Entry
+- **Entry zone:** 1835–1870 (D1 FVG bottom)
+- **Trigger:** H4 bullish displacement з D1 FVG
+- **SL:** 1790 (нижче D1 Strong Low 1800)
+- **T1:** 2199 (D1 Strong High) — R:R 4.4
+- **T2:** 2395 (W1 FVG) — R:R 7.0
+- **Invalidation:** D1 close < 1800
 
 Plan B активується, якщо H4 Strong Low 1916 не тримає. Тоді я чекаю sweep зони 1835–1870 (дно D1 FVG) і шукаю H4 displacement. Risk:Reward навіть кращий — 4.4R і 7.0R, але ймовірність нижча, бо пробій 1916 ламає H4 OF.
 

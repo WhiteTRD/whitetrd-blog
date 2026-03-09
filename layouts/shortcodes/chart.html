@@ -1,12 +1,12 @@
-<div style="display:flex;justify-content:center;">
+<figure class="chart-embed">
 <iframe
   src="{{ .Get "src" }}"
-  style="width:100%;max-width:620px;aspect-ratio:660/400;border:none;"
   loading="lazy"
   scrolling="no"
   sandbox="allow-scripts">
 </iframe>
-</div>
+{{ with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
 <script>
 (function() {
   var iframe = document.currentScript.previousElementSibling.querySelector('iframe');
