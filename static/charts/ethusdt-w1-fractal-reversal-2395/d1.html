@@ -6,6 +6,8 @@
 <title>ETHUSDT · D1</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
+  body { display: flex; align-items: center; justify-content: center; }
   @media (prefers-color-scheme: dark) { body { background: #0a0a0a; } }
   @media (prefers-color-scheme: light) { body { background: #fafafa; } }
 </style>
@@ -346,7 +348,7 @@ function App() {
   const [mode, setMode] = useState("candles");
   const S = useTheme();
   return (
-    <div style={{ background: S.bg, minHeight: "100vh", padding: "24px 16px", ...mono, color: S.price }}>
+    <div style={{ background: S.bg, padding: "12px 16px", ...mono, color: S.price }}>
       <div style={{ maxWidth: 660, margin: "0 auto" }}>
         <div style={{ display: "flex", gap: 4, marginBottom: 12 }}>
           {["candles", "line"].map(m => (
