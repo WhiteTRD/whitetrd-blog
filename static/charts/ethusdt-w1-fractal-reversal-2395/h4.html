@@ -34,14 +34,25 @@ const LIGHT = {
 };
 
 function useTheme() {
-  const [dark, setDark] = useState(
-    () => typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+  const [dark, setDark] = useState(() => {
+    if (window.__forcedTheme !== undefined) return window.__forcedTheme === "dark";
+    return typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = (e) => setDark(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    const mqHandler = (e) => { if (window.__forcedTheme === undefined) setDark(e.matches); };
+    mq.addEventListener("change", mqHandler);
+    const msgHandler = (e) => {
+      if (e.data && e.data.type === "theme") {
+        window.__forcedTheme = e.data.theme;
+        setDark(e.data.theme === "dark");
+      }
+    };
+    window.addEventListener("message", msgHandler);
+    return () => {
+      mq.removeEventListener("change", mqHandler);
+      window.removeEventListener("message", msgHandler);
+    };
   }, []);
   return dark ? DARK : LIGHT;
 }
@@ -395,8 +406,8 @@ function App() {
   const [mode, setMode] = useState("candles");
   const S = useTheme();
   return (
-    <div style={{ background: S.bg, padding: "12px 16px", ...mono, color: S.price }}>
-      <div style={{ maxWidth: 660, margin: "0 auto" }}>
+    <div style={{ background: S.bg, padding: "8px 0", ...mono, color: S.price }}>
+      <div style={{ margin: "0 auto" }}>
         <div style={{ display: "flex", gap: 4, marginBottom: 12 }}>
           {["candles", "line"].map(m => (
             <button key={m} onClick={() => setMode(m)} style={{

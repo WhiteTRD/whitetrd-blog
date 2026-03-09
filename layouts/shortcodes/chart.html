@@ -1,9 +1,27 @@
-<div style="display:flex;justify-content:center;">
+<div style="display:flex;justify-content:center;padding:0 20px;">
 <iframe
   src="{{ .Get "src" }}"
-  style="width:100%;max-width:700px;aspect-ratio:660/400;border:1px solid #e5e7eb;border-radius:8px;"
+  style="width:100%;max-width:660px;aspect-ratio:660/400;border:none;"
   loading="lazy"
   scrolling="no"
   sandbox="allow-scripts">
 </iframe>
 </div>
+<script>
+(function() {
+  var iframe = document.currentScript.previousElementSibling.querySelector('iframe');
+  function getTheme() {
+    var dt = document.documentElement.getAttribute('data-theme');
+    if (dt) return dt;
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function sendTheme() {
+    if (iframe.contentWindow) {
+      iframe.contentWindow.postMessage({type: 'theme', theme: getTheme()}, '*');
+    }
+  }
+  iframe.addEventListener('load', sendTheme);
+  new MutationObserver(sendTheme).observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sendTheme);
+})();
+</script>
