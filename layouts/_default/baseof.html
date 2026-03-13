@@ -8,6 +8,7 @@
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <link rel="canonical" href="{{ .Permalink }}">
   <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | absURL }}">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
   {{/* OG Meta */}}
   <meta property="og:title" content="{{ .Title | default .Site.Title }}">
@@ -41,10 +42,11 @@
       --callout-warning: #cc3333;
       --callout-insight: #2d8a56;
       --callout-info: #3366cc;
+      --green: #2d8a56;
     }
 
     @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
+      :root:not([data-theme="light"]):not([data-theme="lime"]) {
         --bg-primary: #0a0a0a;
         --bg-secondary: #141414;
         --bg-tertiary: #1a1a1a;
@@ -64,6 +66,7 @@
         --callout-warning: #f87171;
         --callout-insight: #34d399;
         --callout-info: #60a5fa;
+        --green: #34d399;
       }
     }
 
@@ -87,30 +90,55 @@
       --callout-warning: #f87171;
       --callout-insight: #34d399;
       --callout-info: #60a5fa;
+      --green: #34d399;
+    }
+
+    [data-theme="lime"] {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #141414;
+      --bg-tertiary: #1a1a1a;
+      --text-primary: #d4d4d4;
+      --text-secondary: #6b6b6b;
+      --text-tertiary: #555555;
+      --accent: #4ec970;
+      --accent-hover: #5dd97f;
+      --border-primary: #252525;
+      --border-secondary: #1a1a1a;
+      --shadow-sm: none;
+      --shadow-md: none;
+      --selection-bg: rgba(78, 201, 112, 0.25);
+      --selection-text: #eeeeee;
+      --code-bg: #141414;
+      --callout-bg: #141414;
+      --callout-warning: #e2b74b;
+      --callout-insight: #4ec970;
+      --callout-info: #5b9bd5;
+      --green: #4ec970;
     }
 
     pre span {
       color: var(--text-primary) !important;
     }
 
-    * { box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @keyframes blink { 50% { opacity: 0; } }
 
     html {
       background: var(--bg-primary);
     }
 
     body {
-      font-family: monospace;
-      max-width: 600px;
+      font-family: 'JetBrains Mono', monospace;
+      max-width: 780px;
       margin: 0 auto;
-      padding: 20px;
-      line-height: 1.6;
+      padding: 48px 24px 96px;
+      font-size: 14px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
       background: var(--bg-primary);
       color: var(--text-primary);
-    }
-
-    strong, b {
-      font-weight: 600;
+      min-height: 100vh;
     }
 
     ::selection {
@@ -118,10 +146,14 @@
       color: var(--selection-text);
     }
 
+    strong, b {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
     a {
       color: var(--accent);
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      text-decoration: none;
       transition: color 0.15s;
     }
 
@@ -138,29 +170,37 @@
     }
 
     h1 {
-      font-size: 24px;
-      margin-bottom: 8px;
+      font-size: 22px;
+      margin-bottom: 6px;
       line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
     }
 
     h2 {
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid var(--border-primary);
-      padding-bottom: 6px;
-      margin-top: 32px;
-      margin-bottom: 12px;
+      font-size: 16px;
+      color: var(--text-primary);
+      margin: 48px 0 16px;
+      border-bottom: none;
+      padding-bottom: 0;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+    h2::before {
+      content: "## ";
+      color: var(--text-tertiary);
+      font-weight: 400;
     }
 
     h3 {
-      font-size: 16px;
+      font-size: 14px;
       margin-top: 24px;
       margin-bottom: 8px;
     }
 
     p {
-      margin-bottom: 15px;
+      margin-bottom: 16px;
+      color: var(--text-primary);
     }
 
     ul, ol {
@@ -172,10 +212,16 @@
       margin-bottom: 4px;
     }
 
+    hr {
+      border: none;
+      border-top: 1px solid var(--border-primary);
+      margin: 40px 0;
+    }
+
     .author {
       color: var(--text-secondary);
-      font-size: 13px;
-      margin-bottom: 24px;
+      font-size: 12px;
+      margin-bottom: 8px;
     }
 
     .intro {
@@ -186,14 +232,14 @@
     pre {
       background: var(--code-bg) !important;
       border: 1px solid var(--border-primary);
-      border-radius: 4px;
-      padding: 16px;
+      border-radius: 6px;
+      padding: 16px 20px;
       overflow-x: auto;
       font-size: 13px;
-      line-height: 1.5;
+      line-height: 1.7;
       margin: 24px 0;
       color: var(--text-primary) !important;
-      box-shadow: var(--shadow-sm);
+      white-space: pre;
     }
 
     pre::-webkit-scrollbar {
@@ -248,7 +294,7 @@
 
     .chart-embed iframe {
       width: 100%;
-      max-width: 600px;
+      max-width: 780px;
       aspect-ratio: 600 / 380;
       border: none;
       border-radius: 8px;
@@ -266,34 +312,44 @@
       margin: 0;
     }
 
+    /* ─── Table ─── */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
-    }
-
-    th, td {
+      font-size: 13px;
+      margin: 24px 0;
       border: 1px solid var(--border-primary);
-      padding: 8px;
-      text-align: left;
-      vertical-align: top;
+      border-radius: 6px;
+      overflow: hidden;
     }
 
     th {
+      text-align: left;
+      padding: 10px 14px;
       background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border-primary);
     }
 
-    hr {
-      border: none;
-      border-top: 1px solid var(--border-primary);
-      margin: 30px 0;
+    td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border-primary);
+      color: var(--text-primary);
     }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-secondary); }
+    td:first-child { color: var(--green); font-weight: 500; }
 
     .callout {
       border: 1px solid var(--border-primary);
       padding: 12px 16px;
       margin: 20px 0;
-      border-radius: 4px;
+      border-radius: 6px;
       background: var(--callout-bg);
     }
 
@@ -327,31 +383,32 @@
       border-left: 3px solid var(--callout-info);
     }
 
+    /* ─── Tags ─── */
     .tags {
-      margin: 8px 0 16px;
+      margin: 8px 0 40px;
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
     }
 
     .tag {
-      font-size: 12px;
-      padding: 2px 8px;
-      border: 1px solid var(--border-primary);
+      font-size: 11px;
+      padding: 2px 10px;
       border-radius: 3px;
       text-decoration: none;
-      color: var(--text-secondary);
-      transition: all 0.15s;
+      color: var(--green);
+      background: rgba(78, 201, 112, 0.08);
+      border: none;
+      transition: background 0.15s;
     }
 
     .tag:visited {
-      color: var(--text-secondary);
+      color: var(--green);
     }
 
-    .tag:hover, .tag.active {
-      background: var(--text-primary);
-      color: var(--bg-primary);
-      border-color: var(--text-primary);
+    .tag:hover {
+      background: rgba(78, 201, 112, 0.15);
+      color: var(--green);
     }
 
     .posts {
@@ -429,10 +486,21 @@
       margin: 30px 0 20px;
     }
 
-    /* Prompt navigation */
+    /* ─── Breadcrumb ─── */
     .prompt-nav {
-      margin-bottom: 24px;
-      font-size: 14px;
+      margin-bottom: 40px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .prompt-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .prompt-nav a:hover {
+      color: var(--text-primary);
     }
 
     .prompt-sep {
@@ -447,7 +515,17 @@
       color: var(--text-tertiary);
     }
 
-    /* Directory listing */
+    .cursor {
+      display: inline-block;
+      width: 7px;
+      height: 15px;
+      background: var(--green);
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+    }
+
+    /* ─── Directory listing ─── */
     .dir-listing {
       margin: 16px 0;
       padding-left: 16px;
@@ -468,10 +546,12 @@
       outline-offset: 2px;
     }
 
+    /* ─── Footer ─── */
     footer {
       margin-top: 64px;
-      text-align: center;
-      font-size: 13px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-primary);
+      font-size: 12px;
       color: var(--text-secondary);
     }
 
@@ -482,7 +562,7 @@
       background: var(--bg-secondary);
       border: 1px solid var(--border-primary);
       color: var(--text-secondary);
-      font-family: monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       padding: 4px 8px;
       cursor: pointer;
@@ -495,9 +575,13 @@
       opacity: 1;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
+      body {
+        padding: 32px 14px 64px;
+      }
+
       h1 {
-        font-size: 22px;
+        font-size: 18px;
       }
 
       pre {
@@ -547,18 +631,30 @@
       var d = document.documentElement;
       var b = document.querySelector('.theme-toggle');
       var saved = localStorage.getItem('theme');
+      var themes = ['light', 'dark', 'lime'];
       if (saved) d.setAttribute('data-theme', saved);
-      function update() {
-        var isDark = d.getAttribute('data-theme') === 'dark' ||
-          (!d.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
-        b.textContent = isDark ? 'light' : 'dark';
+
+      function current() {
+        var t = d.getAttribute('data-theme');
+        if (t) return t;
+        return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
+
+      function label(t) {
+        var next = themes[(themes.indexOf(t) + 1) % themes.length];
+        return next;
+      }
+
+      function update() {
+        b.textContent = label(current());
+      }
+
       update();
       matchMedia('(prefers-color-scheme: dark)').addEventListener('change', update);
+
       window.toggleTheme = function() {
-        var isDark = d.getAttribute('data-theme') === 'dark' ||
-          (!d.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
-        var next = isDark ? 'light' : 'dark';
+        var cur = current();
+        var next = themes[(themes.indexOf(cur) + 1) % themes.length];
         d.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
         update();
