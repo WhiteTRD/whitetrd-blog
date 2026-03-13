@@ -43,8 +43,10 @@ function useTheme() {
     mq.addEventListener("change", mqHandler);
     const msgHandler = (e) => {
       if (e.data && e.data.type === "theme") {
-        window.__forcedTheme = e.data.theme;
-        setDark(e.data.theme === "dark");
+        const isDark = e.data.theme === "dark" || e.data.theme === "lime";
+        window.__forcedTheme = isDark ? "dark" : "light";
+        document.body.style.background = isDark ? "#0a0a0a" : "#fafafa";
+        setDark(isDark);
       }
     };
     window.addEventListener("message", msgHandler);

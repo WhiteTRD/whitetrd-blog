@@ -17,7 +17,9 @@
   }
   function sendTheme() {
     if (iframe.contentWindow) {
-      iframe.contentWindow.postMessage({type: 'theme', theme: getTheme()}, '*');
+      var theme = getTheme();
+      if (theme === 'lime') theme = 'dark';
+      iframe.contentWindow.postMessage({type: 'theme', theme: theme}, '*');
     }
   }
   iframe.addEventListener('load', sendTheme);
