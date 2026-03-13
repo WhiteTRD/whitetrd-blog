@@ -234,7 +234,6 @@ categories: ["ai"]
 ## Як це виглядає повністю
 
 <div class="code-block"><span class="comment">// повна архітектура agent-системи</span>
-
 <span class="key">USER</span>
  <span class="arrow">│</span>
  <span class="arrow">▼</span>
@@ -272,7 +271,6 @@ categories: ["ai"]
 Claude Opus працює як **planner + reasoning engine**. Він отримує system prompt:
 
 <div class="code-block"><span class="key">system prompt:</span>
-
 <span class="str">You are the strategic planner of the system.</span>
 <span class="str">Your task:</span>
 <span class="str">- decompose goals</span>
@@ -282,7 +280,6 @@ Claude Opus працює як **planner + reasoning engine**. Він отрим�
 Потім orchestrator читає план і запускає агентів:
 
 <div class="code-block"><span class="comment">// orchestrator reads planner output</span>
-
 {
  <span class="key">"task1"</span>: <span class="str">"research aircraft"</span>,
  <span class="key">"task2"</span>: <span class="str">"collect sources"</span>,
@@ -294,7 +291,6 @@ Claude Opus працює як **planner + reasoning engine**. Він отрим�
 ## Claude Opus 4.6 coverage
 
 <div class="code-block"><span class="comment">// що Claude закриває нативно (✓) і що потребує infra (⚙)</span>
-
 <span class="val">✓</span> <span class="key">Оператор</span>          <span class="type">— chat, API, Claude Code</span>
 <span class="val">✓</span> <span class="key">Стратегічний</span>       <span class="type">— extended thinking, planner agent</span>
 <span class="arrow">⚙</span> <span class="key">Довга пам'ять</span>      <span class="type">— Pinecone / Weaviate / Chroma</span>
