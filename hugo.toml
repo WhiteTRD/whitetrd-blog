@@ -20,7 +20,7 @@ title = "My Blog"
 
 [params]
   author = "whitetrd"
-  description = "Personal blog about tech and AI"
+  description = "Personal blog"
   socials_telegram = ""
   socials_github = ""
   socials_twitter = ""
