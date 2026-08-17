@@ -12,9 +12,6 @@ categories: ["trading"]
 .cf-frame .cf-key { display:inline-block; min-width:150px; color:var(--callout-info); }
 .cf-frame .cf-up { color:var(--green); }
 .cf-frame .cf-down { color:var(--callout-warning); }
-figure { margin:24px 0 8px; }
-figure img { width:100%; border:1px solid var(--border-primary); border-radius:6px; display:block; }
-figcaption { font-size:12px; color:var(--text-secondary); margin-top:8px; }
 @media (max-width:600px) {
   .cf-frame { font-size:11px; padding:12px 14px; }
   .cf-frame .cf-key { min-width:0; display:block; }
