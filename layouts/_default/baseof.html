@@ -20,7 +20,7 @@
   {{ if .Params.private }}<meta name="robots" content="noindex, nofollow">{{ end }}
 
   {{ partial "schema.html" . }}
-  <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
+  <script>var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){localStorage.removeItem('theme');t=null;}if(t)document.documentElement.setAttribute('data-theme',t);</script>
   <style>
     :root {
       --bg-primary: #fafafa;
@@ -46,7 +46,7 @@
     }
 
     @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]):not([data-theme="lime"]) {
+      :root:not([data-theme="light"]) {
         --bg-primary: #0a0a0a;
         --bg-secondary: #141414;
         --bg-tertiary: #1a1a1a;
@@ -91,29 +91,6 @@
       --callout-insight: #34d399;
       --callout-info: #60a5fa;
       --green: #34d399;
-    }
-
-    [data-theme="lime"] {
-      --bg-primary: #0d0d0d;
-      --bg-secondary: #141414;
-      --bg-tertiary: #1a1a1a;
-      --text-primary: #d4d4d4;
-      --text-secondary: #6b6b6b;
-      --text-tertiary: #555555;
-      --accent: #4ec970;
-      --accent-hover: #5dd97f;
-      --border-primary: #252525;
-      --border-secondary: #1a1a1a;
-      --shadow-sm: none;
-      --shadow-md: none;
-      --selection-bg: rgba(78, 201, 112, 0.25);
-      --selection-text: #eeeeee;
-      --code-bg: #141414;
-      --callout-bg: #141414;
-      --callout-warning: #e2b74b;
-      --callout-insight: #4ec970;
-      --callout-info: #5b9bd5;
-      --green: #4ec970;
     }
 
     pre span {
@@ -290,6 +267,96 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    /* ─── Lightbox ─── */
+    article figure img {
+      width: 100%;
+      border: 1px solid var(--border-primary);
+      border-radius: 6px;
+      cursor: zoom-in;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.94);
+      overscroll-behavior: contain;
+      opacity: 0;
+      transition: opacity 0.15s ease-out;
+    }
+
+    .lightbox.is-open {
+      opacity: 1;
+    }
+
+    .lightbox img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      max-width: none;
+      transform-origin: 0 0;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      cursor: grab;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .lightbox img.is-dragging {
+      cursor: grabbing;
+    }
+
+    .lightbox-close,
+    .lightbox-hint {
+      position: fixed;
+      z-index: 2;
+      font-family: 'JetBrains Mono', monospace;
+      color: #d4d4d4;
+      background: rgba(20, 20, 20, 0.85);
+      border: 1px solid #333;
+      border-radius: 3px;
+    }
+
+    .lightbox-close {
+      top: 14px;
+      right: 14px;
+      width: 30px;
+      height: 30px;
+      font-size: 17px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .lightbox-close:hover {
+      color: #fff;
+      border-color: #666;
+    }
+
+    .lightbox-hint {
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+      margin: 0;
+      padding: 5px 12px;
+      font-size: 11px;
+      color: #888;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .lightbox-hint.is-faded {
+      opacity: 0;
+    }
+
+    @media (max-width: 600px) {
+      .lightbox-hint {
+        font-size: 10px;
+        padding: 4px 9px;
+      }
     }
 
     .chart-embed iframe {
@@ -605,6 +672,63 @@
         animation-duration: 0s;
       }
     }
+
+    /* ─── Rainbow name ─── */
+    .rainbow {
+      --rainbow-dur: 4s;
+      --rainbow-sat: 85%;
+      --rainbow-lum: 42%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .rainbow {
+        --rainbow-lum: 64%;
+      }
+    }
+
+    [data-theme="dark"] .rainbow {
+      --rainbow-lum: 64%;
+    }
+
+    /* Each letter is pre-wound by a full cycle so the wave is already
+       travelling on first paint instead of building up over 4s. */
+    .rainbow-letter {
+      animation: rainbow-letter var(--rainbow-dur) linear infinite;
+      animation-delay: calc(var(--i) * var(--rainbow-dur) / var(--n) - var(--rainbow-dur));
+    }
+
+    @keyframes rainbow-letter {
+      0% {
+        color: inherit;
+        text-shadow: none;
+      }
+      8% {
+        color: hsl(calc(var(--i) * 360 / var(--n)), var(--rainbow-sat), var(--rainbow-lum));
+        text-shadow: 0 0 14px hsla(calc(var(--i) * 360 / var(--n)), var(--rainbow-sat), var(--rainbow-lum), 0.55);
+      }
+      22%, 100% {
+        color: inherit;
+        text-shadow: none;
+      }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rainbow-letter {
+        animation: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -620,8 +744,9 @@
     (function() {
       var d = document.documentElement;
       var b = document.querySelector('.theme-toggle');
+      var themes = ['light', 'dark'];
       var saved = localStorage.getItem('theme');
-      var themes = ['light', 'dark', 'lime'];
+      if (saved && themes.indexOf(saved) === -1) saved = null;
       if (saved) d.setAttribute('data-theme', saved);
 
       function current() {
@@ -649,6 +774,177 @@
         localStorage.setItem('theme', next);
         update();
       };
+    })();
+  </script>
+  <script>
+    // Lightbox: click a figure image to inspect it at full resolution.
+    // Wheel or pinch to zoom around the pointer, drag to pan, Esc to close.
+    (function() {
+      var thumbs = document.querySelectorAll('article figure img');
+      if (!thumbs.length) return;
+
+      var box, full, hint, nw, nh, scale, fitScale, tx, ty;
+      var pointers = new Map();
+      var pinchDist = 0, dragging = false, lastX = 0, lastY = 0;
+
+      function build() {
+        box = document.createElement('div');
+        box.className = 'lightbox';
+
+        full = document.createElement('img');
+        full.alt = '';
+
+        var close = document.createElement('button');
+        close.className = 'lightbox-close';
+        close.type = 'button';
+        close.setAttribute('aria-label', 'Закрити');
+        close.textContent = '×';
+
+        hint = document.createElement('p');
+        hint.className = 'lightbox-hint';
+        hint.textContent = 'колесо — зум · перетягни — рух · Esc — закрити';
+
+        box.appendChild(full);
+        box.appendChild(close);
+        box.appendChild(hint);
+        document.body.appendChild(box);
+
+        close.addEventListener('click', close_);
+        box.addEventListener('click', function(e) {
+          // Only a click on the backdrop closes; a drag that ends on it must not.
+          if (e.target === box) close_();
+        });
+        box.addEventListener('wheel', onWheel, { passive: false });
+        full.addEventListener('pointerdown', onDown);
+        full.addEventListener('pointermove', onMove);
+        full.addEventListener('pointerup', onUp);
+        full.addEventListener('pointercancel', onUp);
+        window.addEventListener('resize', function() { if (box.parentNode && box.classList.contains('is-open')) fit(); });
+      }
+
+      function render() {
+        full.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+      }
+
+      function fit() {
+        var vw = window.innerWidth, vh = window.innerHeight;
+        fitScale = Math.min(vw * 0.96 / nw, vh * 0.92 / nh);
+        scale = fitScale;
+        tx = (vw - nw * scale) / 2;
+        ty = (vh - nh * scale) / 2;
+        render();
+      }
+
+      function zoomTo(next, px, py) {
+        // Keep whatever sits under the pointer pinned in place.
+        var maxScale = Math.max(fitScale * 8, 4);
+        next = Math.min(Math.max(next, fitScale * 0.9), maxScale);
+        tx = px - (px - tx) * next / scale;
+        ty = py - (py - ty) * next / scale;
+        scale = next;
+        render();
+        hint.classList.add('is-faded');
+      }
+
+      function onWheel(e) {
+        e.preventDefault();
+        zoomTo(scale * (e.deltaY < 0 ? 1.18 : 1 / 1.18), e.clientX, e.clientY);
+      }
+
+      function onDown(e) {
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        full.setPointerCapture(e.pointerId);
+        if (pointers.size === 1) {
+          dragging = true;
+          lastX = e.clientX;
+          lastY = e.clientY;
+          full.classList.add('is-dragging');
+        } else if (pointers.size === 2) {
+          dragging = false;
+          full.classList.remove('is-dragging');
+          pinchDist = spread();
+        }
+      }
+
+      function spread() {
+        var p = Array.from(pointers.values());
+        return Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y);
+      }
+
+      function centre() {
+        var p = Array.from(pointers.values());
+        return { x: (p[0].x + p[1].x) / 2, y: (p[0].y + p[1].y) / 2 };
+      }
+
+      function onMove(e) {
+        if (!pointers.has(e.pointerId)) return;
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+        if (pointers.size === 2) {
+          var d = spread();
+          if (pinchDist > 0) {
+            var c = centre();
+            zoomTo(scale * d / pinchDist, c.x, c.y);
+          }
+          pinchDist = d;
+          return;
+        }
+
+        if (!dragging) return;
+        tx += e.clientX - lastX;
+        ty += e.clientY - lastY;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        render();
+        hint.classList.add('is-faded');
+      }
+
+      function onUp(e) {
+        pointers.delete(e.pointerId);
+        if (pointers.size < 2) pinchDist = 0;
+        if (pointers.size === 0) {
+          dragging = false;
+          full.classList.remove('is-dragging');
+        }
+      }
+
+      function open(src, alt) {
+        if (!box) build();
+        full.alt = alt || '';
+        hint.classList.remove('is-faded');
+        document.body.style.overflow = 'hidden';
+
+        var probe = new Image();
+        probe.onload = function() {
+          nw = probe.naturalWidth;
+          nh = probe.naturalHeight;
+          full.src = src;
+          full.style.width = nw + 'px';
+          full.style.height = nh + 'px';
+          fit();
+          requestAnimationFrame(function() { box.classList.add('is-open'); });
+        };
+        probe.src = src;
+      }
+
+      function close_() {
+        if (!box) return;
+        box.classList.remove('is-open');
+        document.body.style.overflow = '';
+        pointers.clear();
+        dragging = false;
+        setTimeout(function() {
+          if (!box.classList.contains('is-open')) full.removeAttribute('src');
+        }, 200);
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && box && box.classList.contains('is-open')) close_();
+      });
+
+      thumbs.forEach(function(img) {
+        img.addEventListener('click', function() { open(img.currentSrc || img.src, img.alt); });
+      });
     })();
   </script>
 </body>

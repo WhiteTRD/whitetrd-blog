@@ -3,7 +3,6 @@ languageCode = "uk"
 title = "My Blog"
 
 [taxonomies]
-  tag = "tags"
   category = "categories"
 
 [pagination]
