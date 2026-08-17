@@ -671,7 +671,7 @@
     {{ block "main" . }}{{ end }}
   </main>
   <footer>
-    <p>&copy; {{ now.Year }} {{ partial "rainbow-name.html" . }}</p>
+    <p>&copy; {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}</p>
   </footer>
   <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
   <script>
