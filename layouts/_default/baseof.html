@@ -20,7 +20,7 @@
   {{ if .Params.private }}<meta name="robots" content="noindex, nofollow">{{ end }}
 
   {{ partial "schema.html" . }}
-  <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
+  <script>var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){localStorage.removeItem('theme');t=null;}if(t)document.documentElement.setAttribute('data-theme',t);</script>
   <style>
     :root {
       --bg-primary: #fafafa;
@@ -46,7 +46,7 @@
     }
 
     @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]):not([data-theme="lime"]) {
+      :root:not([data-theme="light"]) {
         --bg-primary: #0a0a0a;
         --bg-secondary: #141414;
         --bg-tertiary: #1a1a1a;
@@ -91,29 +91,6 @@
       --callout-insight: #34d399;
       --callout-info: #60a5fa;
       --green: #34d399;
-    }
-
-    [data-theme="lime"] {
-      --bg-primary: #0d0d0d;
-      --bg-secondary: #141414;
-      --bg-tertiary: #1a1a1a;
-      --text-primary: #d4d4d4;
-      --text-secondary: #6b6b6b;
-      --text-tertiary: #555555;
-      --accent: #4ec970;
-      --accent-hover: #5dd97f;
-      --border-primary: #252525;
-      --border-secondary: #1a1a1a;
-      --shadow-sm: none;
-      --shadow-md: none;
-      --selection-bg: rgba(78, 201, 112, 0.25);
-      --selection-text: #eeeeee;
-      --code-bg: #141414;
-      --callout-bg: #141414;
-      --callout-warning: #e2b74b;
-      --callout-insight: #4ec970;
-      --callout-info: #5b9bd5;
-      --green: #4ec970;
     }
 
     pre span {
@@ -704,13 +681,12 @@
     }
 
     @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]):not([data-theme="lime"]) .rainbow {
+      :root:not([data-theme="light"]) .rainbow {
         --rainbow-lum: 64%;
       }
     }
 
-    [data-theme="dark"] .rainbow,
-    [data-theme="lime"] .rainbow {
+    [data-theme="dark"] .rainbow {
       --rainbow-lum: 64%;
     }
 
@@ -768,8 +744,9 @@
     (function() {
       var d = document.documentElement;
       var b = document.querySelector('.theme-toggle');
+      var themes = ['light', 'dark'];
       var saved = localStorage.getItem('theme');
-      var themes = ['light', 'dark', 'lime'];
+      if (saved && themes.indexOf(saved) === -1) saved = null;
       if (saved) d.setAttribute('data-theme', saved);
 
       function current() {

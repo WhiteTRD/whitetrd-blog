@@ -1,9 +1,7 @@
 {{ define "main" }}
-{{ with .Site.Taxonomies.tags }}
 <div class="tags">
-  {{ range .ByCount }}
-  <a href="{{ "/tags/" | absURL }}{{ .Term | urlize }}/" class="tag">{{ .Term }} ({{ .Count }})</a>
+  {{ range .Data.Terms.ByCount }}
+  <a href="{{ .Page.RelPermalink }}" class="tag">{{ .Term }} ({{ .Count }})</a>
   {{ end }}
 </div>
-{{ end }}
 {{ end }}

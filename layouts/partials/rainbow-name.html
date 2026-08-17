@@ -1,4 +1,4 @@
-{{- $name := .Site.Params.author | default .Site.Title -}}
+{{- $name := .Params.author | default .Site.Params.author | default .Site.Title -}}
 {{- $chars := split $name "" -}}
 {{- $n := len $chars -}}
 <span class="rainbow" style="--n:{{ $n }}"><span class="sr-only">{{ $name }}</span><span aria-hidden="true">
