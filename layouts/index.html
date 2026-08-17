@@ -1,5 +1,5 @@
 {{ define "main" }}
-<p><strong>{{ .Site.Params.author }}</strong></p>
+<p><strong>{{ partial "rainbow-name.html" . }}</strong></p>
 <p class="intro">{{ .Site.Params.description }}</p>
 
 <div class="dir-listing">

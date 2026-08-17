@@ -605,6 +605,64 @@
         animation-duration: 0s;
       }
     }
+
+    /* ─── Rainbow name ─── */
+    .rainbow {
+      --rainbow-dur: 4s;
+      --rainbow-sat: 85%;
+      --rainbow-lum: 42%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]):not([data-theme="lime"]) .rainbow {
+        --rainbow-lum: 64%;
+      }
+    }
+
+    [data-theme="dark"] .rainbow,
+    [data-theme="lime"] .rainbow {
+      --rainbow-lum: 64%;
+    }
+
+    /* Each letter is pre-wound by a full cycle so the wave is already
+       travelling on first paint instead of building up over 4s. */
+    .rainbow-letter {
+      animation: rainbow-letter var(--rainbow-dur) linear infinite;
+      animation-delay: calc(var(--i) * var(--rainbow-dur) / var(--n) - var(--rainbow-dur));
+    }
+
+    @keyframes rainbow-letter {
+      0% {
+        color: inherit;
+        text-shadow: none;
+      }
+      8% {
+        color: hsl(calc(var(--i) * 360 / var(--n)), var(--rainbow-sat), var(--rainbow-lum));
+        text-shadow: 0 0 14px hsla(calc(var(--i) * 360 / var(--n)), var(--rainbow-sat), var(--rainbow-lum), 0.55);
+      }
+      22%, 100% {
+        color: inherit;
+        text-shadow: none;
+      }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rainbow-letter {
+        animation: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -613,7 +671,7 @@
     {{ block "main" . }}{{ end }}
   </main>
   <footer>
-    <p>&copy; {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}</p>
+    <p>&copy; {{ now.Year }} {{ partial "rainbow-name.html" . }}</p>
   </footer>
   <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
   <script>
